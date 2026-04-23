@@ -1,0 +1,17 @@
+{
+    "name": "@tr1ger4you/react-cades-plugin",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "keywords": [],
+    "author": "",
+    "peerDependencies": {
+        "react": "^19.2.4"
+    },
+    "devDependencies": {
+        "@types/react": "^19.2.14"
+    }
+}
