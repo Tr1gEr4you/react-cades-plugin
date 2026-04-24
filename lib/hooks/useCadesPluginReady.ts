@@ -22,19 +22,20 @@ export function useCadesPluginReady() {
             return;
         }
 
-        plugin
-            .CreateObjectAsync('CAdESCOM.About')
-            .then(() => {
-                console.log('Расширение обнаружено');
-                setExtensionError(null);
-                setExtensionReady(true);
-            })
-            .catch((error: unknown) => {
-                setExtensionError(error);
-                setExtensionReady(false);
-            });
+        try {
+            await plugin.CreateObjectAsync('CAdESCOM.About');
 
-        setTimeout(() => checkExtension(nextAttempt), INTERVAL_MS);
+            console.log('Расширение обнаружено');
+            setExtensionError(null);
+            setExtensionReady(true);
+
+            return;
+        } catch (error) {
+            setExtensionError(error);
+            setExtensionReady(false);
+
+            setTimeout(() => checkExtension(nextAttempt), INTERVAL_MS);
+        }
     };
 
     const checkPlugin = async (attempt: number) => {
