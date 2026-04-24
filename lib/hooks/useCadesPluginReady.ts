@@ -13,7 +13,7 @@ export function useCadesPluginReady() {
     const isReady = pluginReady && extensionReady && !pluginError && !extensionError;
 
     const checkExtension = async (attempt: number) => {
-        attempt++;
+        const nextAttempt = attempt + 1;
 
         if (attempt >= MAX_ATTEMP) {
             setExtensionError('Проверьте установлено ли расширение Cades Plugin');
@@ -32,11 +32,11 @@ export function useCadesPluginReady() {
                 setExtensionReady(false);
             });
 
-        setTimeout(checkExtension, INTERVAL_MS);
+        setTimeout(() => checkExtension(nextAttempt), INTERVAL_MS);
     };
 
     const checkPlugin = async (attempt: number) => {
-        attempt++;
+        const nextAttempt = attempt + 1;
 
         if (window.cadesplugin) {
             setPluginReady(true);
@@ -50,7 +50,7 @@ export function useCadesPluginReady() {
             return;
         }
 
-        setTimeout(checkPlugin, INTERVAL_MS);
+        setTimeout(() => checkPlugin(nextAttempt), INTERVAL_MS);
     };
 
     useEffect(() => {

@@ -2,12 +2,20 @@
     "name": "@tr1ger4you/react-cades-plugin",
     "version": "0.0.1",
     "description": "",
-    "main": "index.js",
-    "directories": {
-        "lib": "lib"
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "keywords": [
+        "react",
+        "cades"
+    ],
+    "author": "Tr1gEr",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tr1ger4you/react-cades-plugin "
     },
-    "keywords": [],
-    "author": "",
     "peerDependencies": {
         "react": "^19.2.4"
     },
