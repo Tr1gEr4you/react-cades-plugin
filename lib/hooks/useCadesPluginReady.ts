@@ -15,7 +15,8 @@ export function useCadesPluginReady() {
     const checkExtension = async (attempt: number) => {
         const nextAttempt = attempt + 1;
 
-        if (attempt >= MAX_ATTEMP) {
+        if (nextAttempt >= MAX_ATTEMP) {
+            console.error('Не удалость обноружить расширение Cades Plugin');
             setExtensionError('Проверьте установлено ли расширение Cades Plugin');
             setExtensionReady(false);
             return;
@@ -24,6 +25,7 @@ export function useCadesPluginReady() {
         plugin
             .CreateObjectAsync('CAdESCOM.About')
             .then(() => {
+                console.log('Расширение обнаружено');
                 setExtensionError(null);
                 setExtensionReady(true);
             })
@@ -44,9 +46,10 @@ export function useCadesPluginReady() {
             return;
         }
 
-        if (attempt >= MAX_ATTEMP) {
+        if (nextAttempt >= MAX_ATTEMP) {
             setPluginReady(false);
             setPluginError('Не удалось загрузить плагин');
+            console.error('Не удалость загрузить плагин');
             return;
         }
 
