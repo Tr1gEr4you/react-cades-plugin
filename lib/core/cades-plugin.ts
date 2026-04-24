@@ -4,7 +4,7 @@ import { extractParamFromSubject, toRussianDate } from '../utils/utils';
 export const plugin = window.cadesplugin as any;
 
 export class CadesPlugin {
-    public async getCertificatesFromStore() {
+    public static async getCertificatesFromStore() {
         const store = await plugin.CreateObjectAsync('CAdESCOM.Store');
         await store.Open(plugin.CAPICOM_CURRENT_USER_STORE, plugin.CAPICOM_MY_STORE, plugin.CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED);
 
@@ -22,7 +22,7 @@ export class CadesPlugin {
         return certificates;
     }
 
-    public async parseCertificate(certificates: any[]): Promise<Certificate[]> {
+    public static async parseCertificate(certificates: any[]): Promise<Certificate[]> {
         return await Promise.all(
             certificates.map(async (cert, index) => ({
                 index,
@@ -38,7 +38,7 @@ export class CadesPlugin {
         );
     }
 
-    public async getCertificateByThumbprint(thumbprint: string) {
+    public static async getCertificateByThumbprint(thumbprint: string) {
         const certificates = await this.getCertificatesFromStore();
 
         const thumbprints = await Promise.all(certificates.map((cert: any) => cert.Thumbprint));
@@ -47,7 +47,7 @@ export class CadesPlugin {
         return certificates[index];
     }
 
-    public async verifySignature(data: any, signData: any, detached: boolean) {
+    public static async verifySignature(data: any, signData: any, detached: boolean) {
         try {
             const signedData = await plugin.CreateObjectAsync('CAdESCOM.CadesSignedData');
             await signedData.propset_ContentEncoding(plugin.CADESCOM_BASE64_TO_BINARY);
@@ -60,7 +60,7 @@ export class CadesPlugin {
         }
     }
 
-    public async signData(thumbprint: string, data: any, detached: boolean) {
+    public static async signData(thumbprint: string, data: any, detached: boolean) {
         const base64Data = btoa(data);
 
         const certificate = await this.getCertificateByThumbprint(thumbprint);
